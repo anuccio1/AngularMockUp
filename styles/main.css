@@ -1,5 +1,5 @@
 html,body {
-    background-color: #e6e6e6;
+    background-color: black;
     width: 93%;
     height: 100%;
     margin: 20px auto;
@@ -74,14 +74,16 @@ html,body {
 }
 #fullMovieDiv {
     display: inline-block;
-    margin: 0 22px 30px 0;
+    margin: 0 45px 30px 0;
     max-width: 100px;
 }
 #fullMovieDiv div {
-    width: 75%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.movie-title {
+    font-weight: bold;
 }
 #mainHeader {
     width: 100%;
@@ -117,7 +119,7 @@ html,body {
     width: 15%;
     float: right;
     clear: right;
-    background-color: #CC4D4D;
+    background-color: #ECEDEF;
     border: none;
     border-radius: 0 5px 5px 0;  /* panel curve top right bottom right*/
 }
