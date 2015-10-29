@@ -1,0 +1,138 @@
+html,body {
+    background-color: #e6e6e6;
+    width: 93%;
+    height: 100%;
+    margin: 20px auto;
+    font-family: open-sans;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+#pageContainer {
+    margin: 0 auto;
+    height: 90%;
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.panel {
+    height: 100%;
+    display: inline-block;
+    position: relative;
+}
+.panel-item {
+    display: block;
+    width: 100%;
+}
+/* Menu panel on left */
+#leftPanel {
+    overflow: hidden;
+    width: 15%;
+    float: left;
+    clear: left;
+    border: none;
+    border-radius: 5px 0 0 5px;  /* panel curve top left bottom left*/
+}
+
+#mainMenu {
+    height: 100%;
+    background-color: #11171C;
+    color: white;
+}
+#innerMovieMenuDiv {
+    padding: 20px;
+}
+.menu-list {
+    list-style: none;
+    padding-left: 10px;
+}
+.menu-list li {
+    padding: 5px;
+}
+/* Movie search box*/
+#movieSearchContainer {
+    background-color: #CC4D4D;
+    height:15%;
+    display: inline-flex;
+}
+#inputMovieSearch {
+    margin: auto;
+}
+
+/* main panel in middle */
+#mainPanel {
+    width: 70%;
+    overflow: auto;
+}
+.movie-img {
+    width: 100px;
+    height: 150px;
+}
+#mainMovieContainer {
+    margin: 19px;
+}
+#fullMovieDiv {
+    display: inline-block;
+    margin: 0 22px 30px 0;
+    max-width: 100px;
+}
+#fullMovieDiv div {
+    width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#mainHeader {
+    width: 100%;
+}
+#mainHeader div {
+    display: inline-block;
+    padding: 10px;
+}
+
+#discoverHeader {
+    font-size: 25px;
+    width: 20%;
+    text-align: left;
+}
+#selectorHeader {
+    width:50%;
+    text-align: center;
+}
+#selectorHeader > div{
+    cursor: pointer;
+}
+#refreshHeader {
+    width: 20%;
+    text-align: right;
+}
+#releaseDate {
+    border-right: 1px solid black;
+}
+
+/* Menu panel on right */
+#rightPanel {
+    overflow: hidden;
+    width: 15%;
+    float: right;
+    clear: right;
+    background-color: #CC4D4D;
+    border: none;
+    border-radius: 0 5px 5px 0;  /* panel curve top right bottom right*/
+}
+
+#usernameContainer {
+    background-color: #74c0c8;
+    height: 10%;
+}
+#chatWithContainer {
+    background-color: #C4CCD8;
+    height: 10%;
+    display: inline-flex;
+    position: absolute;
+    bottom: 0;
+}
+#inputChatWith {
+    margin: auto;
+}

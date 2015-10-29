@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Counsyl MockUp</title>
+	<link rel="stylesheet" href="styles/main.css">
+	<script type="text/javascript" src="vendor/angular.min.js"></script>
+	<script type="text/javascript" src="vendor/lodash.js"></script>
+	<script type="text/javascript" src="scripts/main-built.js"></script>
+</head>
+<body ng-app="myApp">
+	<div id="pageContainer" ng-controller="mainController">
+		<div id="leftPanel" class="panel">
+			<div id="movieSearchContainer" class="panel-item">
+				<input type="text" id="inputMovieSearch" ng-model="movie.search" placeholder="Search movies..." />
+			</div>
+			<div id="mainMenu" class="panel-item">
+				<div id="innerMovieMenuDiv">
+					<div class="movie-menu-header">
+						Main
+					</div>
+					<ul class="menu-list">
+						<li>Playing</li>
+						<li>Discover</li>
+						<li>Activity</li>
+						<li>Top Charts</li>
+						<li>New Releases</li>
+					</ul>
+					<div class="movie-menu-header">
+						Your Movie Circles
+					</div>
+					<ul class="menu-list">
+						<li>This I Must See</li>
+						<li>The Best</li>
+					</ul>
+					<div class="movie-menu-header">
+						Collections
+					</div>
+					<ul class="menu-list">
+						<li>Me and Bob</li>
+						<li>Travel Movies</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="mainPanel" class="panel">
+			<div id="mainHeader">
+				<div id="discoverHeader">Discover</div>
+				<div id="selectorHeader">
+					<div id="releaseDate" ng-click="showByReleaseDate()"> Release Date</div>
+					<div ng-click="showByPopularity()"> Popularity</div>
+				</div>
+				<div id="refreshHeader">pics here</div>
+			</div>
+			<div id="mainMovieContainer">
+				<div id="fullMovieDiv" ng-repeat="movie in allMovies">
+					<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}">
+					<div>{{movie.Title}}</div>
+					<div>{{movie.Genre}}</div>
+					<div>{{movie.Runtime}}</div>
+				</div>
+			</div>
+		</div>
+		<div id="rightPanel" class="panel">
+			<div id="usernameContainer" class="panel-item">
+				<span>user</span>
+			</div>
+			<div id="buddyList">
+				<div class="movie-menu-header">
+					Online
+				</div>
+				<ul class="menu-list">
+					<li ng-repeat="user in users.online">
+						<div>{{user.name}}</div>
+						<div>{{user.subject}}</div>
+					</li>
+				</ul>
+				<div class="movie-menu-header">
+					Offline
+				</div>
+				<ul class="menu-list">
+					<li ng-repeat="user in users.offline">
+						<div>{{user.name}}</div>
+						<div>{{user.subject}}</div>
+					</li>
+				</ul>
+			</div>
+			<div id="chatWithContainer" class="panel-item">
+				<input type="text" id="inputChatWith" ng-model="users.chatWith" placeholder="Chat with..." />
+			</div>
+		</div>
+	</div>
+</body>
+</html>
