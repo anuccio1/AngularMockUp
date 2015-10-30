@@ -146,6 +146,7 @@ var myApp = angular.module('myApp', []).controller('mainController', ['$scope', 
 	};
 	$scope.init();
 }]).service('movieSvc', ['$http', function ($http) {
+
 	var allMovies = ['The Great Gatsby', '2 Guns', 'The Lone Ranger', 'The Godfather', 'Black Mass', 'World War Z', 'The Spectacular Now', 'Pacific Rim', 'The Matrix', 'Planes', 'Kick-Ass', 'Citizen Kane', 'Mulholland Drive', 'The Shining', 'Full Metal Jacket', 'Batman Begins', 'Sicario', 'Friday', 'The Dark Knight', '12 Angry Men', 'Inception', 'Forrest Gump', 'Fight Club', 'Goodfellas', 'The Martian', 'Steve Jobs'];
 
 	var mockUsers = [{
@@ -192,6 +193,7 @@ var myApp = angular.module('myApp', []).controller('mainController', ['$scope', 
 
 	var omdbURL = 'http://www.omdbapi.com/?callback=JSON_CALLBACK&plot=short&r=json&t=';
 
+	//this uses the OMDB API: http://omdbapi.com/ (open source)
 	this.retrieveAllInfo = function () {
 		var _this = this;
 
@@ -224,7 +226,9 @@ var myApp = angular.module('myApp', []).controller('mainController', ['$scope', 
 	this.getUsers = function () {
 		return mockUsers;
 	};
-}]).directive('ngEnter', function () {
+}])
+//for pressing enter on inputs
+.directive('ngEnter', function () {
 	return function (scope, element, attrs) {
 		element.bind("keydown keypress", function (event) {
 			if (event.which === 13) {
