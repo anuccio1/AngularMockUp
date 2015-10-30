@@ -14,7 +14,7 @@
 	<div id="pageContainer" ng-controller="mainController">
 		<div id="leftPanel" class="panel">
 			<div id="movieSearchContainer" class="panel-item">
-				<input type="text" class="search-inputs" ng-model="movieSearch" placeholder="Search movies..." />
+				<input ng-enter="filterMovies()" type="text" class="search-inputs" ng-model="movieSearch" placeholder="Search movies..." />
 				<button type="submit" class="search-inputs" ng-click="filterMovies()"><i class="fa fa-search"></i></button>
 			</div>
 			<div id="mainMenu" class="panel-item">
@@ -24,10 +24,10 @@
 					</div>
 					<ul class="menu-list">
 						<li><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Playing</li>
-						<li ng-click="showDiscoverPage()"><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Discover</li>
-						<li><i class="fa fa-user"></i>&nbsp;&nbsp;Activity</li>
-						<li ng-click="showByPopularity(true)"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Top Charts</li>
-						<li ng-click="showByReleaseDate(true)"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;New Releases</li>
+						<li ng-class="{'selected-menu' : selectedMenuItem==='Discover'}" ng-click="refreshMovies()"><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Discover</li>
+						<li ng-class="{'selected-menu' : selectedMenuItem==='Activity'}"><i class="fa fa-user"></i>&nbsp;&nbsp;Activity</li>
+						<li ng-class="{'selected-menu' : selectedMenuItem==='Top Charts'}" ng-click="showByPopularity(true)"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Top Charts</li>
+						<li ng-class="{'selected-menu' : selectedMenuItem==='New Releases'}" ng-click="showByReleaseDate(true)"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;New Releases</li>
 					</ul>
 					<div class="movie-menu-header">
 						Your Movie Circles
@@ -53,11 +53,11 @@
 					<div id="releaseDate" ng-click="showByReleaseDate()" ng-class="(showByRelease === true) ? 'aqua' : 'detail-font'"> Release Date</div>
 					<div ng-click="showByPopularity()" ng-class="(showByRelease === false) ? 'aqua' : 'detail-font'"> Popularity</div>
 				</div>
-				<div id="refreshHeader">pics here</div>
+				<div id="refreshHeader"><i ng-click="refreshMovies()" class="fa fa-repeat fa-2x"></i>&nbsp;&nbsp;<i class="fa fa-upload fa-2x"></i></div>
 			</div>
 			<div id="mainMovieContainer">
-				<div id="movie_{{movie.imdbID}}" class="full-movie-div" ng-repeat="movie in allMoviesDisplay">
-					<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}" ng-mouseover="showMovieDetails(movie.Title)" ng-mouseleave="hideMovieDetails()">
+				<div id="movie_{{movie.imdbID}}" class="full-movie-div" ng-repeat="movie in allMoviesDisplay" ng-mouseover="showMovieDetails(movie.Title)" ng-mouseleave="hideMovieDetails()">
+					<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}" >
 					<i class="fa fa-play-circle fa-3x play-circle" ng-show="isMovieShowing(movie.Title)"></i>
 					<div class='movie-long-detail' ng-class="(detailOnLeft) ? 'detail-left' : 'detail-right'" ng-show="isMovieShowing(movie.Title)">
 						<div>
@@ -98,7 +98,7 @@
 					Online
 				</div>
 				<ul class="menu-list">
-					<li ng-repeat="user in getOnlineUsers()">
+					<li ng-click="openChatWithUser(user.name)" ng-repeat="user in getOnlineUsers()">
 						<div><img class='user-pic' src="images/user-pic.png" alt="user-pic"></div>
 						<div>
 							<div>{{user.name}}</div>
@@ -110,7 +110,7 @@
 					Offline
 				</div>
 				<ul class="menu-list">
-					<li ng-repeat="user in getOfflineUsers()">
+					<li ng-click="openChatWithUser(user.name)" ng-repeat="user in getOfflineUsers()">
 						<div><img class='user-pic' src="images/user-pic.png" alt="user-pic"></div>
 						<div>
 							<div>{{user.name}}</div>
@@ -119,8 +119,24 @@
 					</li>
 				</ul>
 			</div>
+			<div id="chatWindow" ng-show="selectedUser">
+				<div id="chatContainer">
+					<div id="chatHeader">
+						<span>{{selectedUser}}</span>
+						<span ng-click="selectedUser = null" class='float-right'><i class="fa fa-times fa-lg"></i></span>
+					</div>
+					<div id="chatBody">
+						<div ng-repeat="msg in allChats[selectedUser] track by $index">
+							{{msg}}
+						</div>
+					</div>
+					<div id="chatFooter">
+						<input ng-enter="addMessageToConvo()" ng-model="currentMessage" type="text" placeholder="Enter message here...">
+					</div>
+				</div>
+			</div>
 			<div id="chatWithContainer" class="panel-item">
-				<input type="text" id="inputChatWith" ng-model="chatWith" placeholder="Chat with..." />
+				<input ng-enter="filterUsers()" type="text" id="inputChatWith" ng-model="chatWith" placeholder="Chat with..." />
 				<button type="submit" class="search-inputs" ng-click="filterUsers()"><i class="fa fa-search"></i></button>
 			</div>
 		</div>
