@@ -147,6 +147,7 @@ const myApp = angular.module('myApp', [])
 	$scope.init();
 }])
 .service('movieSvc', ['$http', function ($http) {
+	
 	const allMovies = ['The Great Gatsby', '2 Guns', 'The Lone Ranger', 'The Godfather', 'Black Mass',
 	'World War Z', 'The Spectacular Now', 'Pacific Rim', 'The Matrix', 'Planes', 'Kick-Ass', 'Citizen Kane',
 	'Mulholland Drive', 'The Shining', 'Full Metal Jacket', 'Batman Begins', 'Sicario', 'Friday', 'The Dark Knight',
@@ -207,6 +208,7 @@ const myApp = angular.module('myApp', [])
 
 	const omdbURL = 'http://www.omdbapi.com/?callback=JSON_CALLBACK&plot=short&r=json&t=';
 
+	//this uses the OMDB API: http://omdbapi.com/ (open source)
 	this.retrieveAllInfo = function () {
 		return new Promise( (resolve, reject) => {		//return promise
 			//create promises for all movies
@@ -241,12 +243,13 @@ const myApp = angular.module('myApp', [])
 	}
 
 }])
+//for pressing enter on inputs
 .directive('ngEnter', function() {
     return function(scope, element, attrs) {
         element.bind("keydown keypress", function(event) {
             if(event.which === 13) {
                 scope.$apply(function(){
-                        scope.$eval(attrs.ngEnter);
+                    scope.$eval(attrs.ngEnter);
                 });
                 
                 event.preventDefault();
