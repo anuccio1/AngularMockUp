@@ -1,0 +1,29 @@
+<div id="movie_{{movie.imdbID}}" class="full-movie-div" ng-repeat="movie in allMovies">
+	<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}" ng-mouseover="showMovieDetails(movie.Title)" ng-mouseleave="hideMovieDetails()">
+	<div class='movie-details' ng-show="isMovieShowing(movie.Title)">
+		<div>
+			<div class='movie-detail-block'>
+				<div>
+					<span>{{movie.Title}}</span>
+					<span class="float-right">{{movie.Runtime}}</span>
+				</div>
+				<div>{{movie.Genre}}</div>
+			</div>
+			<div class="movie-detail-block">{{movie.Plot}}</div>
+			<div>Director: <span class="dir-actor-color">{{movie.Director}}</span></div>
+			<div>Stars: <span class="dir-actor-color">{{movie.Actors}}</span></div>
+		</div>
+		<div class='movie-detail-rating'>
+			Rating: {{movie.imdbRating}}
+		</div>
+		<div>
+			<span>Recommended by:</span>
+			<span class="float-right">A,B,C,D</span>
+		</div>
+	</div>
+	<div class="movie-short-detail">
+		<div class="movie-title">{{movie.Title}}</div>
+		<div>{{movie.Genre}}</div>
+		<div>{{movie.Runtime}}</div>
+	</div>
+</div>

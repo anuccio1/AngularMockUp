@@ -35,11 +35,6 @@ html,body {
     border-radius: 5px 0 0 5px;  /* panel curve top left bottom left*/
 }
 
-#mainMenu {
-    height: 100%;
-    background-color: #11171C;
-    color: white;
-}
 #innerMovieMenuDiv {
     padding: 20px;
 }
@@ -48,7 +43,11 @@ html,body {
     padding-left: 10px;
 }
 .menu-list li {
-    padding: 5px;
+    padding: 4px;
+    cursor: pointer;
+}
+.menu-list li > div {
+    display: inline-block;
 }
 /* Movie search box*/
 #movieSearchContainer {
@@ -56,11 +55,18 @@ html,body {
     height:15%;
     display: inline-flex;
 }
-#inputMovieSearch {
-    margin: auto;
+
+/*end panel left styles */
+
+/* middle panel styles */
+#mainMenu {
+    height: 100%;
+    background-color: #11171C;
+    color: white;
 }
 
-/* main panel in middle */
+
+/* main panel in middle styles */
 #mainPanel {
     width: 70%;
     overflow: auto;
@@ -68,16 +74,54 @@ html,body {
 .movie-img {
     width: 100px;
     height: 150px;
+    cursor: pointer;
+}
+.movie-img:hover {
+    opacity: 0.3;
+}
+.detail-right {
+    left: 125px;
+}
+.detail-left {
+    right: 125px;
+}
+.play-circle {
+    position: absolute;
+    top: 55px;
+    left: 35px;
+    cursor: pointer;
+}
+.movie-long-detail {
+    position: absolute;
+    top: 0;
+    background-color: black;
+    color: white;
+    z-index: 1;
+    width: 250px;
+    padding: 20px;
+}
+.movie-detail-block {
+    margin-bottom: 15px;
+}
+.movie-detail-rating {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    margin: 15px auto;
+    padding: 10px 0;
+}
+.dir-actor-color {
+    color: #50838A;
 }
 #mainMovieContainer {
-    margin: 19px;
+    margin: 40px 19px;
 }
-#fullMovieDiv {
+.full-movie-div {
+    position: relative;
     display: inline-block;
-    margin: 0 45px 30px 0;
+    margin: 0 22px 30px 0;
     max-width: 100px;
 }
-#fullMovieDiv div {
+.movie-short-detail div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -93,7 +137,7 @@ html,body {
     padding: 10px;
 }
 
-#discoverHeader {
+#mainTitleHeader {
     font-size: 25px;
     width: 20%;
     text-align: left;
@@ -113,6 +157,8 @@ html,body {
     border-right: 1px solid black;
 }
 
+/* end middle menu styles */
+
 /* Menu panel on right */
 #rightPanel {
     overflow: hidden;
@@ -127,6 +173,11 @@ html,body {
 #usernameContainer {
     background-color: #74c0c8;
     height: 10%;
+    display: inline-flex;
+}
+#usernameContainer span {
+    margin: auto;
+    color:white;
 }
 #chatWithContainer {
     background-color: #C4CCD8;
@@ -137,4 +188,33 @@ html,body {
 }
 #inputChatWith {
     margin: auto;
+}
+#buddyList {
+    padding: 15px;
+}
+.user-pic {
+    width:25px;
+}
+/* end right panel styles */
+
+/* other */
+.aqua {
+    color: #74c0c8;
+}
+
+.search-inputs {
+    margin: auto;
+}
+
+.float-left {
+    float: left;
+}
+.float-right {
+    float: right;
+}
+.detail-font {
+    color: #B8C0CC;
+}
+.movie-menu-header {
+    color: #3B4B54
 }

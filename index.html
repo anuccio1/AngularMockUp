@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Counsyl MockUp</title>
-	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/main.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="vendor/angular.min.js"></script>
+	<script type="text/javascript" src="vendor/jquery.min.js"></script>
 	<script type="text/javascript" src="vendor/lodash.js"></script>
 	<script type="text/javascript" src="scripts/main-built.js"></script>
 </head>
@@ -12,7 +14,8 @@
 	<div id="pageContainer" ng-controller="mainController">
 		<div id="leftPanel" class="panel">
 			<div id="movieSearchContainer" class="panel-item">
-				<input type="text" id="inputMovieSearch" ng-model="movie.search" placeholder="Search movies..." />
+				<input type="text" class="search-inputs" ng-model="movieSearch" placeholder="Search movies..." />
+				<button type="submit" class="search-inputs" ng-click="filterMovies()"><i class="fa fa-search"></i></button>
 			</div>
 			<div id="mainMenu" class="panel-item">
 				<div id="innerMovieMenuDiv">
@@ -20,73 +23,105 @@
 						Main
 					</div>
 					<ul class="menu-list">
-						<li>Playing</li>
-						<li>Discover</li>
-						<li>Activity</li>
-						<li>Top Charts</li>
-						<li>New Releases</li>
+						<li><i class="fa fa-play-circle"></i>&nbsp;&nbsp;Playing</li>
+						<li ng-click="showDiscoverPage()"><i class="fa fa-bullseye"></i>&nbsp;&nbsp;Discover</li>
+						<li><i class="fa fa-user"></i>&nbsp;&nbsp;Activity</li>
+						<li ng-click="showByPopularity(true)"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp;Top Charts</li>
+						<li ng-click="showByReleaseDate(true)"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;New Releases</li>
 					</ul>
 					<div class="movie-menu-header">
 						Your Movie Circles
 					</div>
 					<ul class="menu-list">
-						<li>This I Must See</li>
-						<li>The Best</li>
+						<li><i class="fa fa-circle-thin"></i>&nbsp;&nbsp;This I Must See</li>
+						<li><i class="fa fa-circle-thin"></i>&nbsp;&nbsp;The Best</li>
 					</ul>
 					<div class="movie-menu-header">
 						Collections
 					</div>
 					<ul class="menu-list">
-						<li>Me and Bob</li>
-						<li>Travel Movies</li>
+						<li><i class="fa fa-umbrella"></i>&nbsp;&nbsp;Me and Bob</li>
+						<li><i class="fa fa-star"></i>&nbsp;&nbsp;Travel Movies</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 		<div id="mainPanel" class="panel">
 			<div id="mainHeader">
-				<div id="discoverHeader">Discover</div>
+				<div id="mainTitleHeader">{{selectedMenuItem}}</div>
 				<div id="selectorHeader">
-					<div id="releaseDate" ng-click="showByReleaseDate()"> Release Date</div>
-					<div ng-click="showByPopularity()"> Popularity</div>
+					<div id="releaseDate" ng-click="showByReleaseDate()" ng-class="(showByRelease === true) ? 'aqua' : 'detail-font'"> Release Date</div>
+					<div ng-click="showByPopularity()" ng-class="(showByRelease === false) ? 'aqua' : 'detail-font'"> Popularity</div>
 				</div>
 				<div id="refreshHeader">pics here</div>
 			</div>
 			<div id="mainMovieContainer">
-				<div id="fullMovieDiv" ng-repeat="movie in allMovies">
-					<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}">
-					<div class="movie-title">{{movie.Title}}</div>
-					<div>{{movie.Genre}}</div>
-					<div>{{movie.Runtime}}</div>
+				<div id="movie_{{movie.imdbID}}" class="full-movie-div" ng-repeat="movie in allMoviesDisplay">
+					<img class="movie-img" ng-src={{movie.Poster}} alt="{{movie.Title}}" ng-mouseover="showMovieDetails(movie.Title)" ng-mouseleave="hideMovieDetails()">
+					<i class="fa fa-play-circle fa-3x play-circle" ng-show="isMovieShowing(movie.Title)"></i>
+					<div class='movie-long-detail' ng-class="(detailOnLeft) ? 'detail-left' : 'detail-right'" ng-show="isMovieShowing(movie.Title)">
+						<div>
+							<div class='movie-detail-block'>
+								<div>
+									<span>{{movie.Title}}</span>
+									<span class="float-right detail-font">{{movie.Runtime}}</span>
+								</div>
+								<div class="detail-font">{{movie.Genre}}</div>
+							</div>
+							<div class="movie-detail-block">{{movie.Plot}}</div>
+							<div>Director: <span class="dir-actor-color">{{movie.Director}}</span></div>
+							<div>Stars: <span class="dir-actor-color">{{movie.Actors}}</span></div>
+						</div>
+						<div class='movie-detail-rating'>
+							Rating: {{movie.imdbRating}}
+						</div>
+						<div>
+							<span>Recommended by:</span>
+							<span class="float-right">A,B,C,D</span>
+						</div>
+					</div>
+					<div class="movie-short-detail">
+						<div class="movie-title">{{movie.Title}}</div>
+						<div>{{movie.Genre}}</div>
+						<div>{{movie.Runtime}}</div>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div id="rightPanel" class="panel">
 			<div id="usernameContainer" class="panel-item">
-				<span>user</span>
+				<span><i class="fa fa-user"></i>&nbsp;&nbsp;Alex Nuccio</span>
+				<span class="float-right"><i class="fa fa-circle-o"></i></span>
 			</div>
 			<div id="buddyList">
 				<div class="movie-menu-header">
 					Online
 				</div>
 				<ul class="menu-list">
-					<li ng-repeat="user in users.online">
-						<div>{{user.name}}</div>
-						<div>{{user.subject}}</div>
+					<li ng-repeat="user in getOnlineUsers()">
+						<div><img class='user-pic' src="images/user-pic.png" alt="user-pic"></div>
+						<div>
+							<div>{{user.name}}</div>
+							<div>{{user.subject}}</div>
+						</div>
 					</li>
 				</ul>
 				<div class="movie-menu-header">
 					Offline
 				</div>
 				<ul class="menu-list">
-					<li ng-repeat="user in users.offline">
-						<div>{{user.name}}</div>
-						<div>{{user.subject}}</div>
+					<li ng-repeat="user in getOfflineUsers()">
+						<div><img class='user-pic' src="images/user-pic.png" alt="user-pic"></div>
+						<div>
+							<div>{{user.name}}</div>
+							<div>{{user.subject}}</div>
+						</div>
 					</li>
 				</ul>
 			</div>
 			<div id="chatWithContainer" class="panel-item">
-				<input type="text" id="inputChatWith" ng-model="users.chatWith" placeholder="Chat with..." />
+				<input type="text" id="inputChatWith" ng-model="chatWith" placeholder="Chat with..." />
+				<button type="submit" class="search-inputs" ng-click="filterUsers()"><i class="fa fa-search"></i></button>
 			</div>
 		</div>
 	</div>
