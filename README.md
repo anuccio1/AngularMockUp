@@ -29,4 +29,5 @@ I implemented the following:
 To run, open up index.html in a recent version of Chrome (i have Version 46.0.2490.71 (64-bit))
 
 If you would like to see my javascript code, look at main.js (this transpiles into main-built.js (ES6-> ES5))
+to build code: run 'npm install', then 'grunt', and open up index.html
 
